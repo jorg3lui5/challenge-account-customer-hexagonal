@@ -1,0 +1,63 @@
+server:
+  port: 8082
+
+spring:
+  cloud:
+    function:
+      definition: consumeDecryptFile;produceDecryptFile
+    stream:
+      default-binder: cash-management-binder
+      binders:
+        cash-management-binder:
+          type: kafka
+          environment:
+            spring:
+              cloud:
+                stream:
+                  kafka:
+                    binder:
+                      brokers: pkc-56d1g.eastus.azure.confluent.cloud:9092
+                      configuration:
+                        sasl:
+                          jaas:
+                            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="JXNIKQ7E7OXU2DAJ" password="girmjAPbF/UghJ+PDIYWT6PYnbKytQG2ivN+GacHVINzraH4D7MvZdlrBwDRmyyR";
+                          mechanism: PLAIN
+                        security:
+                          protocol: SASL_SSL
+      bindings:
+        consumeDecryptFile-in-0:
+          destination: tem_tpc_sp_file-encrypt-decript-result_dev
+          group: topic_input_decrypt_file_group_6
+          binder: cash-management-binder
+          consumer:
+            maxAttempts: 1
+            defaultRetryable: false
+        produceDecryptFile-out-0:
+          destination: tem_tpc_sp_file-encrypt-decrypt_dev
+          binder: cash-management-binder
+
+  redis:
+    host: redis-develop-business-banking.redis.cache.windows.net
+    port: 6380
+    password: 2wT4RYc55PgqzkJGI+M3oBMc9mUbUjMgL1xDlJcZgps=
+    session:
+      ttl: 600
+      unique: false
+
+kafka-info:
+  topic:
+    input:
+      scan_antivirus: scan_antivirus
+    output:
+      file-encrypt-decrypt: tem_tpc_sp_file-encrypt-decrypt_dev #productor
+  binding:
+    input:
+      file-encrypt-decrypt-result: consumeDecryptFile
+    output:
+      file-encrypt-decrypt: produceDecryptFile
+
+clients:
+  http-client:
+    api:
+      client-jba-customer-management:
+        base-url: http://localhost:8081/v1/customer-management

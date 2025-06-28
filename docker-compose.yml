@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=database
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  customer-management:
+    image: jba-msa-customer-management
+    build:
+      context: ./jba-msa-customer-management
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    depends_on:
+      - db
+  account-management:
+    image: jba-msa-account-management
+    build:
+      context: ./jba-msa-account-management
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8082
+    depends_on:
+      - db

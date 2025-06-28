@@ -1,0 +1,50 @@
+# Ignorar archivos de construcción y temporales
+HELP.md
+.gradle/
+build/
+!jba-msa-customer-management/gradle/wrapper/gradle-wrapper.jar
+!jba-msa-customer-management/**/src/main/**/build/
+!jba-msa-customer-management/**/src/test/**/build/
+
+### Maven ###
+.mvn/
+jba-msa-customer-management/**/target/
+jba-msa-customer-management/**/bin/
+jba-msa-customer-management/**/*.class
+!jba-msa-customer-management/**/src/main/**/target/
+!jba-msa-customer-management/**/src/test/**/target/
+
+# Archivos del sistema
+.DS_Store
+**/.DS_Store
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!jba-msa-customer-management/**/src/main/**/bin/
+!jba-msa-customer-management/**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!jba-msa-customer-management/**/src/main/**/out/
+!jba-msa-customer-management/**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+.jba-msa-customer-management/nb-gradle/
+
+### VS Code ###
+.vscode/
